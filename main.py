@@ -1,6 +1,9 @@
 import pygame
 from constants import *
 from logger import log_state
+from player import Player
+from circleshape import CircleShape
+
 
 def main():
     # 1. Initialize Pygame (Always do this first)
@@ -14,8 +17,12 @@ def main():
     
     # Optional: Setup a clock to control framerate (makes the game smooth)
     clock = pygame.time.Clock()
+    ship = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+
 
     forever = True
+    dt = 0
 
     # 3. The Game Loop
     while forever:
@@ -27,16 +34,17 @@ def main():
         # --- Game Logic ---
         log_state() # Keeping your custom logger
         
-        # --- Draw ---
-        # FIX: Use 'screen', and put color in double brackets ((r, g, b))
-        screen.fill((0, 0, 0)) # Usually Asteroids is black (0,0,0), but use (255,255,255) for white
-        
-        # FIX: This must be INSIDE the loop to update the screen every frame
+
+        dt = clock.tick(60) / 1000
+
+        # update game state
+        ship.update(dt)
+
+        # draw
+        screen.fill((0, 0, 0))
+        ship.draw(screen)
         pygame.display.flip()
-
-        # Limit the game to 60 frames per second (prevents CPU overheating)
-        #clock.tick(60)
-
+        
     # Quit pygame when the loop finishes
     pygame.quit()
 
