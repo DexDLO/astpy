@@ -3,6 +3,8 @@ from constants import *
 from logger import log_state
 from player import Player
 from circleshape import CircleShape
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 
 def main():
@@ -20,8 +22,15 @@ def main():
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
+    Asteroid.containers = (asteroids,updatable,drawable)
+
     Player.containers = (updatable, drawable)
 
+    AsteroidField.containers = (updatable)
+
+    asteroids_field = AsteroidField()
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     forever = True
