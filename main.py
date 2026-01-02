@@ -23,6 +23,7 @@ def main():
 
     forever = True
     dt = 0
+    
 
     # 3. The Game Loop
     while forever:
@@ -44,7 +45,7 @@ def main():
         screen.fill((0, 0, 0))
         ship.draw(screen)
         pygame.display.flip()
-        
+
     # Quit pygame when the loop finishes
     pygame.quit()
 
