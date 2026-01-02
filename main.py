@@ -17,9 +17,12 @@ def main():
     
     # Optional: Setup a clock to control framerate (makes the game smooth)
     clock = pygame.time.Clock()
-    ship = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
 
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     forever = True
     dt = 0
@@ -39,11 +42,14 @@ def main():
         dt = clock.tick(60) / 1000
 
         # update game state
-        ship.update(dt)
+        updatable.update(dt)
 
         # draw
-        screen.fill((0, 0, 0))
-        ship.draw(screen)
+        screen.fill("black")
+
+        for obj in drawable:
+            obj.draw(screen)
+
         pygame.display.flip()
 
     # Quit pygame when the loop finishes
